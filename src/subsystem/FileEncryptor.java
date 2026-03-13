@@ -2,7 +2,7 @@ package subsystem;
 
 public class FileEncryptor {
 
-        private static final int SHIFT = 3; // cifrado César simple
+    private static final int SHIFT = 3; // cifrado César simple
 
     public String encrypt(String text) {
         System.out.println("[FileEncryptor] Cifrando contenido...");

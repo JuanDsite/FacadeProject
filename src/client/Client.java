@@ -8,8 +8,9 @@ import java.nio.file.Paths;
 public class Client {
 
     public static void main(String[] args) {
-        String inputPath  = "File/input.txt";
-        String outputPath = "File/output_encrypted.txt";
+        String inputPath     = "File/input.txt";
+        String encryptedPath = "File/output_encrypted.txt";
+        String decryptedPath = "File/output_decrypted.txt";
 
         try {
             // Crea la carpeta File si no existe
@@ -23,9 +24,23 @@ public class Client {
 
             Facade facade = Facade.getInstance();
 
-            System.out.println("=== Cifrando: " + inputPath);
-            facade.encryptFile(inputPath, outputPath);
-            System.out.println("=== Archivo cifrado guardado en: " + outputPath);
+            // Cifrar
+            System.out.println("\n=== Cifrando: " + inputPath);
+            facade.encryptFile(inputPath, encryptedPath);
+            System.out.println("=== Archivo cifrado guardado en: " + encryptedPath);
+
+            // Descifrar
+            System.out.println("\n=== Descifrando: " + encryptedPath);
+            facade.decryptFile(encryptedPath, decryptedPath);
+            System.out.println("=== Archivo descifrado guardado en: " + decryptedPath);
+
+            // Verificar
+            String original  = new String(Files.readAllBytes(Paths.get(inputPath)));
+            String decrypted = new String(Files.readAllBytes(Paths.get(decryptedPath)));
+
+            System.out.println("\n=== Contenido original:    " + original);
+            System.out.println("=== Contenido descifrado:  " + decrypted);
+            System.out.println("=== ¿Son iguales? " + original.equals(decrypted));
 
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
